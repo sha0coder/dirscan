@@ -1,0 +1,25 @@
+== intro ==
+Fast web resources identificator, combines crawling with bruteforcing.
+This can open attack vectors, and is very useful for pentests.
+
+
+==credits==
+@sha0coder
+
+
+== usage ==
+
+$ ./dirscan  --help
+Usage of ./dirscan:
+  -dict="": the wordlist
+  -go=5: num of concurrent goroutines
+  -lang="": language (java, asp or php)
+  -proxy="": set proxy ip:port
+  -url="": the url
+
+
+== examples ==
+
+./dirscan -url http://site.com/ -dict wordlists/big.txt -lang php -go 20
+
+
