@@ -22,4 +22,6 @@ Usage of ./dirscan:
 
 ./dirscan -url http://site.com/ -dict wordlists/big.txt -lang php -go 20
 
+== todo ==
 
+audodetect operative system, and if is windows avoid com,com1,prn,nul,aux ... and be case insensitive
