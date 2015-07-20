@@ -24,4 +24,12 @@ Usage of ./dirscan:
 
 == todo ==
 
-audodetect operative system, and if is windows avoid com,com1,prn,nul,aux ... and be case insensitive
+- audodetect operative system, and if is windows avoid com,com1,prn,nul,aux ... and be case insensitive
+- if crawler detects test1.php the bruter should test other numbers test2.php, test3.php ...
+
+
+== dificult situations == 
+
+- two or more balanced ws, give different response against non existent file, this confuse dirscan's output
+- how to differentiate a file than a directory? some times this seems impossible
+
