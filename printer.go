@@ -32,7 +32,7 @@ func (p *Printer) Show(b string, code int, size int, url string) {
     if code == 200 {
         fmt.Printf("%s:[%d] (%d bytes)\t%s\n",b,code,size,url)
     
-    } else if code <= 301 && code <= 303 {
+    } else if 301 <= code && code <= 303 {
         fmt.Printf("%s:[%d] (redirect)\t%s\n",b,code,url) //TODO:where?
 
     } else if code == 401 {

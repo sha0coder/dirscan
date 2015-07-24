@@ -41,11 +41,13 @@ func check(err error, msg string) {
 func checkWebserver(surl string) {
     _, code, resp := R.Get(surl)
     R.QuitOnFail(code, "Can't connect")
-
     fmt.Printf("Server: %s\nDefault response: %d\n", resp.Header.Get("Server"), resp.StatusCode)
 
-    _, _, resp = R.Options(surl)
-    fmt.Printf("Allowed Options: %s\n", resp.Header.Get("Allow"))
+    _, code, resp = R.Options(surl)
+    fmt.Println(code);
+    if (code > 0) {
+       fmt.Printf("Allowed Options: %s\n", resp.Header.Get("Allow"))
+    }
 }
 
 func IsDirectory(url string) bool {

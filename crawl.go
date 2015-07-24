@@ -90,7 +90,7 @@ func (c *Crawl) Scan(surl string) {
 
 	resp := c.R.LaunchNoRead("GET", surl, "")
 	if resp == nil || resp.Body == nil { 
-        fmt.Println("nil response: "+surl)
+        //fmt.Println("nil response: "+surl)
         return
     }
     defer resp.Body.Close()
