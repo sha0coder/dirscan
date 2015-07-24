@@ -59,7 +59,7 @@ func (b *Bruter) Check(surl string, ext string) {
     _, code_not_found, _ := R.Get(surl+b.Magic+ext)
     //fmt.Printf("not_found:%d\n", code_not_found)
     html, code, _ := R.Get(surl+ext)
-    if code != code_not_found {
+    if code != code_not_found && code > 0 {
 
         if !b.IsRepeated(surl+ext) { //TODO: meter dentro de este if toda esta funcion
             P.Show("b",code, len(html), surl+ext)
