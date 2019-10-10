@@ -1,7 +1,8 @@
 export GOPATH=$(shell pwd)
 
 all:
-	go get code.google.com/p/go.net/html
+	go get golang.org/x/net/html
+
 	go build dirscan.go crawl.go requests.go printer.go wordlist.go bruter.go config.go
 	strip dirscan
 

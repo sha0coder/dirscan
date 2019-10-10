@@ -3,7 +3,7 @@ package main
 import "strings"
 import "fmt"
 import "net/url"
-import "code.google.com/p/go.net/html"
+import "golang.org/x/net/html"
 
 type CrawlEndCallback func(c *Crawl)
 
