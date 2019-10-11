@@ -25,6 +25,7 @@ var C *Crawl
 var W *Wordlist
 var CFG Config
 var el_c int = 0
+var verbose *bool
 
 var ext_jsp = []string{"html","jsp","do","cfg","prop","sql","log","txt","zip","rar","tar","7z","mdb","tar.gz","tar.bz2","pem","class","jar"} 
 var ext_asp = []string{"html","asp","aspx","mdb","cfg","conf","ini","log","txt","log","zip","rar","7z","mdb","pem"}
@@ -67,12 +68,18 @@ func EndLogic(res *[]string) {
     for _, u := range *res {
         if IsDirectory(u) {
             //brute
+            if *verbose {
+                fmt.Printf("bruteforcing dir %s\n", u);
+            }
             b := new(Bruter)
             b.OnEnd(EndLogic)
             b.Brute(u+"/")
 
         } else {
             //crawl
+            if *verbose {
+                fmt.Printf("crawling file %s\n", u);
+            }
             C.AddHost(CFG.Host)
             C.Crawler(u)
             if len(C.NewResources)>0 {
@@ -80,6 +87,7 @@ func EndLogic(res *[]string) {
             }
         }
     }
+
     //fmt.Printf("EL end %d\n",el_c) // recursion debug
     el_c--
     if el_c <= 0 { 
@@ -95,6 +103,7 @@ func main() {
     var goroutines *int = flag.Int("go", 5, "num of concurrent goroutines")
     var platform *string = flag.String("lang", "", "languaje (java, asp or php)")
     var proxy *string = flag.String("proxy", "", "set proxy ip:port")
+    verbose = flag.Bool("v", false, "verbose mode") 
     flag.Parse()
 
     if *url == "" || *wordlist == "" || *platform == "" {
@@ -121,7 +130,7 @@ func main() {
     
     CFG.Goroutines = *goroutines 
     CFG.Url = *url 
-    CFG.Host = strings.Split(*url,"/")[2]
+    CFG.Host = strings.Split(*url,"/")[2] 
 
     if *proxy != "" { R.SetProxy("http://" + *proxy) }
     checkWebserver(*url)

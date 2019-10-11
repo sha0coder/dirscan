@@ -5,4 +5,5 @@ type Config struct {
     Extensions []string
     Goroutines int
     Host string
+    Sizes []int
 }
