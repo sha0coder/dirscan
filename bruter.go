@@ -1,6 +1,9 @@
 package main
 
-import "net/url"
+import (
+	"net/url"
+	"strings"
+)
 
 //import "fmt"
 
@@ -58,12 +61,22 @@ func (b *Bruter) Check(surl string, ext string) {
 		return
 	}
 
-	_, code_not_found, _ := R.Get(surl + b.Magic + ext)
-	//fmt.Printf("not_found:%d\n", code_not_found)
-	html, code, _ := R.Get(surl + ext)
-	if code != code_not_found && code > 0 {
+	//TODO: refactor this
+	if ext == "" {
+		html, code, _ := R.Get(surl + "/")
+		if code != 404 {
+			if !b.IsRepeated(surl + ext) {
+				P.Show("b", code, len(html), surl+ext)
+				b.Resources = append(b.Resources, surl+ext)
+			}
+		}
+	}
 
-		if !b.IsRepeated(surl + ext) { //TODO: meter dentro de este if toda esta funcion
+	html, code, _ := R.Get(surl + ext)
+	words := len(strings.Split(html, " "))
+
+	if SzList.Push(words) {
+		if !b.IsRepeated(surl + ext) {
 			P.Show("b", code, len(html), surl+ext)
 			b.Resources = append(b.Resources, surl+ext)
 		}
@@ -74,6 +87,7 @@ func (b *Bruter) Worker(surl string, r int) {
 
 	for w := range b.Chan {
 		b.Check(surl+w, "")
+
 		for _, x := range b.Extensions {
 			b.Check(surl+w, "."+x)
 		}
@@ -83,4 +97,5 @@ func (b *Bruter) Worker(surl string, r int) {
 	if b.Routines == 0 && len(b.Resources) > 0 {
 		b.EndCB(&b.Resources)
 	}
+
 }
