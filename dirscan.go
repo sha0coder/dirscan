@@ -31,7 +31,7 @@ var SzList SZList
 
 var ext_jsp = []string{"html", "jsp", "do", "cfg", "prop", "sql", "log", "txt", "zip", "rar", "tar", "7z", "mdb", "tar.gz", "tar.bz2", "pem", "class", "jar"}
 var ext_asp = []string{"html", "asp", "aspx", "mdb", "cfg", "conf", "ini", "log", "txt", "log", "zip", "rar", "7z", "mdb", "pem"}
-var ext_php = []string{"html", "php", "php4", "sql", "cfg", "conf", "log", "txt", "zip", "rar", "tar", "7z", "mdb", "tar.gz", "tar.bz2", "pem"}
+var ext_php = []string{"html", "php", "sql", "cfg", "conf", "log", "txt", "zip", "rar", "tar", "7z", "mdb", "tar.gz", "tar.bz2", "pem"}
 
 func check(err error, msg string) {
 	if err != nil {
@@ -52,23 +52,12 @@ func checkWebserver(surl string) {
 	}
 }
 
+// IsDirectory checks wether an url is a directory or a file
 func IsDirectory(url string) bool {
 	if strings.HasSuffix(url, "/") {
 		return true
 	}
 	return false
-
-	/*
-		parts := strings.Split(url, "/")
-
-		l := len(parts)
-		if l > 2 {
-			if strings.Contains(parts[l-1], ".") {
-				return false
-			}
-			return true
-		}
-		return false*/
 }
 
 func EndLogic(res *[]string) {
@@ -159,5 +148,4 @@ func main() {
 	fmt.Printf("Scanning, press enter to interrupt.\n")
 	fmt.Scanf("%d", &i)
 	fmt.Printf("interrupted.")
-
 }

@@ -66,7 +66,7 @@ func (b *Bruter) Check(surl string, ext string) {
 		html, code, _ := R.Get(surl + "/")
 		if code != 404 {
 			if !b.IsRepeated(surl + ext) {
-				P.Show("b", code, len(html), surl+ext)
+				P.Show("b", code, len(html), surl+ext, html)
 				b.Resources = append(b.Resources, surl+ext)
 			}
 		}
@@ -77,7 +77,7 @@ func (b *Bruter) Check(surl string, ext string) {
 
 	if SzList.Push(words) {
 		if !b.IsRepeated(surl + ext) {
-			P.Show("b", code, len(html), surl+ext)
+			P.Show("b", code, len(html), surl+ext, html)
 			b.Resources = append(b.Resources, surl+ext)
 		}
 	}

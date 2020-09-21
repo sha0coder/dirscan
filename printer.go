@@ -1,11 +1,8 @@
-
-package main 
+package main
 
 import "fmt"
 
-
 type Printer struct {
-
 }
 
 /*
@@ -27,21 +24,21 @@ type Color struct {
     Yellow: "\\033[39m"
 }*/
 
-func (p *Printer) Show(b string, code int, size int, url string) {
-    
-    if code == 200 {
-        fmt.Printf("%s:[%d] (%d bytes)\t%s\n",b,code,size,url)
-    
-    } else if 301 <= code && code <= 303 {
-        fmt.Printf("%s:[%d] (redirect)\t%s\n",b,code,url) //TODO:where?
+// Show prints the results of the tool
+func (p *Printer) Show(b string, code int, size int, url string, data string) {
 
-    } else if code == 401 {
-        fmt.Printf("%s:[%d] (auth needed)\t%s\n",b,code,url)
+	if code == 200 {
+		_, des := Fingerprint(data)
+		fmt.Printf("%s:[%d] (%d bytes)\t%s %s\n", b, code, size, url, des)
 
-    } else if code == 403 {
-        fmt.Printf("%s:[%d] (denied)\t%s\n",b,code,url)
+	} else if 301 <= code && code <= 303 {
+		fmt.Printf("%s:[%d] (redirect)\t%s\n", b, code, url) //TODO:where?
 
-    }
+	} else if code == 401 {
+		fmt.Printf("%s:[%d] (auth needed)\t%s\n", b, code, url)
+
+	} else if code == 403 {
+		fmt.Printf("%s:[%d] (denied)\t%s\n", b, code, url)
+	}
 
 }
-
